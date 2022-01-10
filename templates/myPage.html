@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>스타벅스빌리지 | 마이페이지</title>
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/mypage.css">
+    <script>
+        function logout(){
+            $.removeCookie('mytoken', {path: '/'});
+            alert('로그아웃 되었습니다!')
+            window.location.href='/login'
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="/">스타벅스 빌리지</a></h1>
+        <div class="log-out"><a onclick="logout()">로그아웃</a></div>
+    </header>
+    <main>
+        <div class="nick_hello">
+            <p><span>{{nickname}}</span>님 안녕하세요!</p>
+        </div>
+        <div class="my_review">
+            <h2>내가 작성한 리뷰</h2>
+            <div class="columns is-3">
+                <div class="column c1">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image image is-1by1">
+                                <img src="../static/img/ice_cafe_americano.jpg" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">아이스 카페 아메리카노</p>
+                                    <p class="subtitle is-6">에스프레소</p>
+                                    <figure class="image is-3by1 star">
+                                        <img src="../static/img/star4.svg" alt="4점">
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="content">
+                                여름엔 아메리카노만한게 없죠! 그중에서도 스타벅스 아메리카노가 역시 제일 시원한 것 같아요!
+                            </div>
+                            <div class="like">
+                                <input id="n1" type="checkbox">
+                                <label for="n1" class="unchecked"></label>
+                                <label for="n1">0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column c2">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image image is-1by1">
+                                <img src="../static/img/ice_cafe_americano.jpg" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">아이스 카페 아메리카노</p>
+                                    <p class="subtitle is-6">에스프레소</p>
+                                    <figure class="image is-3by1 star">
+                                        <img src="../static/img/star4.svg" alt="4점">
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="content">
+                                여름엔 아메리카노만한게 없죠! 그중에서도 스타벅스 아메리카노가 역시 제일 시원한 것 같아요!
+                            </div>
+                            <div class="like">
+                                <input id="n2" type="checkbox">
+                                <label for="n2" class="unchecked"></label>
+                                <label for="n2">0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column c3">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image image is-1by1">
+                                <img src="../static/img/ice_cafe_americano.jpg" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">아이스 카페 아메리카노</p>
+                                    <p class="subtitle is-6">에스프레소</p>
+                                    <figure class="image is-3by1 star">
+                                        <img src="../static/img/star4.svg" alt="4점">
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="content">
+                                여름엔 아메리카노만한게 없죠! 그중에서도 스타벅스 아메리카노가 역시 제일 시원한 것 같아요!
+                            </div>
+                            <div class="like">
+                                <input id="n3" type="checkbox">
+                                <label for="n3" class="unchecked"></label>
+                                <label for="n3">0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column c4">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image image is-1by1">
+                                <img src="../static/img/ice_cafe_americano.jpg" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">아이스 카페 아메리카노</p>
+                                    <p class="subtitle is-6">에스프레소</p>
+                                    <figure class="image is-3by1 star">
+                                        <img src="../static/img/star4.svg" alt="4점">
+                                    </figure>
+                                </div>
+                            </div>
+                            <div class="content">
+                                여름엔 아메리카노만한게 없죠! 그중에서도 스타벅스 아메리카노가 역시 제일 시원한 것 같아요!
+                            </div>
+                            <div class="like">
+                                <input id="n4" type="checkbox">
+                                <label for="n4" class="unchecked"></label>
+                                <label for="n4">0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
