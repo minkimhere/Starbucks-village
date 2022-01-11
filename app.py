@@ -24,10 +24,9 @@ def home():
         reviews = list(db.reviews.find({}))
         for review in reviews:
             review["reviewId"] = str(review["_id"])
-            print(review["reviewId"])
             review["count_heart"] = db.likes.count_documents({"post_id": review["reviewId"], "type": "heart"})
             review["heart_by_me"] = bool(db.likes.find_one({"post_id": review["reviewId"], "type": "heart", "id": payload['id']}))
-        print(reviews)
+            print(review)
         return render_template('main.html', user_info=user_info, reviews=reviews)
 
     except jwt.ExpiredSignatureError:
@@ -83,12 +82,6 @@ def check_dup():
     username_receive = request.form['username_give']
     exists = bool(db.users.find_one({"id": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
-
-
-@app.route('/write')
-def review():
-
-    return render_template('index.html')
 
 
 @app.route('/api/category', methods=['POST'])
@@ -156,6 +149,7 @@ def delete_word():
     db.reviews.delete_one({"review": review_recive})
 
     return jsonify({'result': 'success', 'msg': '리뷰 삭제'})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

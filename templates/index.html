@@ -16,12 +16,11 @@
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
     <title>스타벅스 빌리지</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='reviewPost.css') }}">
-    <script src="{{ url_for('static', filename='reviewPost.js') }}"></script>
-    <link rel="stylesheet" href="../static/reviewPost.css">
-    <script src="../static/reviewPost.js"></script>
+    <link rel="stylesheet" href="../static/css/reviewPost.css">
+    <script src="../static/js/reviewPost.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script></head>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
 <body>
     <div class="review-post">
         <div class="review-select">
@@ -48,7 +47,7 @@
             </select>
             <p>평점 : </p>
             <select id="star-rating-select" class="form-select star-rating">
-                <option value="1">1</option>
+                <option value="1" >1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -57,12 +56,13 @@
         </div>
         <textarea name="review-content" id="review-content" class="review-content" cols="30" rows="5" >
         </textarea>
+        <i class="far fa-star"></i>
         <div class="button-group">
             <button type="button" class="btn btn-success review-button" onclick="reviewWrite()">
-                <i class="fas fa-save"></i>
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </button>
             <button type="button" class="btn btn-light close-button" onclick="closePost()">
-                <i class="fa fa-window-close" aria-hidden="true"></i>
+                <i class="fa fa-window-close fa-10x" aria-hidden="true"></i>
             </button>
         </div>
     </div>

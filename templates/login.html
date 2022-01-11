@@ -3,7 +3,7 @@
 <head>
 
     <!-- Webpage Title -->
-    <title>Log In | SWEETER</title>
+    <title>Log In | 스타벅스빌리지</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,18 +14,17 @@
     <!-- Font Awesome CSS -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet&display=swap" rel="stylesheet">
+
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&family=Noto+Serif+KR&display=swap"
-          rel="stylesheet">
-
     <style>
         body {
-            background-color: RGBA(232, 52, 78, 0.2);
+            background-color: #F6F5EF;
             min-height: 100vh;
         }
 
@@ -38,38 +37,39 @@
         .title {
             font-weight: 800;
             font-size: 5rem;
-            font-family: 'Noto Sans KR', sans-serif;
+            font-family: 'Hahmlet', serif;
         }
 
         .subtitle {
             font-size: 2rem;
-            font-family: 'Noto Serif KR', serif;
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         .is-sparta {
-            color: #e8344e !important;
+            color: #006533 !important;
         }
 
         .button.is-sparta {
-            background-color: #e8344e;
+            background-color: #006533;
             border-color: transparent;
             color: #fff !important;
         }
 
         .button.is-sparta.is-outlined {
             background-color: transparent;
-            border-color: #e8344e;
-            color: #e8344e !important;
+            border-color: #006533;
+            color: #006533 !important;
         }
 
         .help {
             color: gray;
         }
     </style>
+
     <script>
         // {% if msg %}
-            //     alert("{{ msg }}")
-            // {% endif %}
+        //     alert("{{ msg }}")
+        // {% endif %}
         function sign_in() {
             let username = $("#input-username").val()
             let password = $("#input-password").val()
@@ -166,13 +166,18 @@
             $("#help-id").toggleClass("is-hidden")
             $("#help-password").toggleClass("is-hidden")
             $("#help-password2").toggleClass("is-hidden")
+            $("#mb-5").toggleClass("is-hidden")
         }
 
+        //아이디 검사 정규표현식
+        //소문자 영어, 대문자 영어, 영어 길이, 숫자 길이, -, ., 아이디 길이
         function is_nickname(asValue) {
             var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
             return regExp.test(asValue);
         }
 
+        //비밀번호 검사 정규표현식
+        // 숫자, 소문자 영어, 대문자 영어, 숫자 길이, 영어길이, 특수문자, 비밀번호 길이
         function is_password(asValue) {
             var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
             return regExp.test(asValue);
@@ -212,50 +217,14 @@
             });
         }
 
-        function sign_in() {
-    let username = $("#input-username").val()
-    let password = $("#input-password").val()
-
-    if (username == "") {
-        $("#help-id-login").text("아이디를 입력해주세요.")
-        $("#input-username").focus()
-        return;
-    } else {
-        $("#help-id-login").text("")
-    }
-
-    if (password == "") {
-        $("#help-password-login").text("비밀번호를 입력해주세요.")
-        $("#input-password").focus()
-        return;
-    } else {
-        $("#help-password-login").text("")
-    }
-    $.ajax({
-        type: "POST",
-        url: "/sign_in",
-        data: {
-            username_give: username,
-            password_give: password
-        },
-        success: function (response) {
-            if (response['result'] == 'success') {
-                $.cookie('mytoken', response['token'], {path: '/'});
-                window.location.replace("/")
-            } else {
-                alert(response['msg'])
-            }
-        }
-    });
-}
     </script>
 
 </head>
 <body>
 <section class="hero is-white">
     <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
-        <h1 class="title is-sparta">SWEETER</h1>
-        <h3 class="subtitle is-sparta">세상을 달달하게</h3>
+        <h1 class="title is-sparta">Starbucs Village</h1>
+        <h3 class="subtitle is-sparta">스타벅스 빌리지</h3>
     </div>
 </section>
 <section class="section">
@@ -282,9 +251,12 @@
                                 <input id="input-password" class="input" type="password" placeholder="비밀번호">
                                 <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
                             </div>
-                            <p id="help-password" class="help is-hidden">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도 사용
+                            <p id="help-password" class="help is-hidden">영문과 숫자 조합의 8-20자의 비밀번호를 설정해주세요. 특수문자(!@#$%^&*)도
+                                사용
                                 가능합니다.</p>
                         </div>
+
+
                     </div>
                     <div id="div-sign-in-or-up" class="has-text-centered">
                         <nav class="level is-mobile">
@@ -325,6 +297,8 @@
                             </button>
                         </nav>
                     </div>
+
+
                 </div>
             </article>
         </div>

@@ -6,98 +6,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-
-    <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"#}
+    {#          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"#}
+    {#          crossorigin="anonymous">#}
 
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"#}
+    {#            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"#}
+    {#            crossorigin="anonymous"></script>#}
     <title>스타벅스 빌리지</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
+
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script src="../static/js/main.js"></script>
+    <script>
+        function openPost() {
+            $('.modal').show()
+        }
+
+        function closePost() {
+            $('.modal').hide()
+        }
+    </script>
 </head>
 <body>
-    <div class="title">
-        <h1> Starbucks Village</h1>
-        <button type="button" class="btn btn-outline-success">Sign up</button>
-        <button type="button" class="btn btn-outline-success">Log in</button>
+<header>
+    <h1><a href="/">스타벅스 빌리지</a></h1>
+    <div class="mini_nav">
+        <div class="log-out"><a href="/mypage">마이페이지</a><a onclick="sign_out()">로그아웃</a></div>
     </div>
-    <!-- Example split danger button -->
-    <div class="coffee-category">
-        <label for="prod1">Beverage</label>
-        <select id="prod1" onchange="sortCoffee(this.value)">
-            <option value="모두보기" selected>모두보기</option>
-            <option value="콜드 브루">콜드 브루</option>
-            <option value="브루드">브루드</option>
-            <option value="에스프레소">에스프레소</option>
-            <option value="프라푸치노">프라푸치노</option>
-            <option value="블랜디드">블랜디드</option>
-            <option value="피치오">피치오</option>
-            <option value="티">티</option>
-            <option value="기타">기타</option>
-            <option value="주스">주스(병음료)</option>
-        </select>
-    </div>
+    <nav class="category_nav">
+        <ul>
+            <li class="selected"><a onclick="sortCoffee(this)" href="#">모두보기</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">콜드 브루</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">브루드</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">에스프레소</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">프라푸치노</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">블랜디드</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">피치오</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">티</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">기타</a></li>
+            <li><a onclick="sortCoffee(this)" href="#">주스(병음료)</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="add_button">
+    <button onclick="openPost()"><span>리뷰남기기</span></button>
+</div>
 
-    <div class="wrapper">
+<div class="wrapper">
+    <div class="card-box">
         {% for review in reviews %}
-            {% if review.category == "주스(병음료)" %}
-                <div id="review-card {{ review.reviewId }}" class="card 주스" style="width: 18rem;">
+            {% set image = review.image %}
+            {% set name = review.coffeeName %}
+            {% set category = review.category %}
+            {% set star = review.starRating %}
+            {% set review = review.review %}
+            {% set reviewNum = review.reviewId %}
+            {% set like = review.Like %}
+
+            {% if category == "주스(병음료)" %}
+                <div id="review-card" class="card 주스">
             {% else %}
-                <div id="review-card {{ review.reviewId }}" class="card {{ review.category }}" style="width: 18rem;">
+                <div id="review-card" class="card {{ category }}">
             {% endif %}
-        <img src="{{ review.image }}"
-             class="card-img-top" alt="...">
-        <div class="card-body">
-            <p><h5 class="coffee-Name">{{ review.coffeeName }}</h5>
+
+        <div class="card-image">
+            <figure class="image image is-1by1">
+                <img src="{{ image }}" alt="{{ name }}">
+            </figure>
         </div>
         <div class="card-content">
-            <p>{{ review.category }}</p>
-            <p>{{ review.review }}</p>
-        </div>
-        <div class="list-group list-group-flush">
-            {% if review.starRating == '1' %}
-                <img src="../static/star1.svg"/>
-            {% elif review.starRating == '2' %}
-                <img src="../static/star2.svg"/>
-            {% elif review.starRating == '3' %}
-                <img src="../static/star3.svg"/>
-            {% elif review.starRating == '4' %}
-                <img src="../static/star4.svg"/>
-            {% elif review.starRating == '5' %}
-                <img src="../static/star5.svg"/>
-            {% endif %}
-        </div>
-        <div class="card-body">
-            {% if review.heart_by_me == True %}
-            {% set class_heart = "fa-heart" %}
-            {% elif review.heart_by_me == False %}
-            {% set class_heart = "fa-heart-o" %}
-            {% endif %}
-            <a class="level-item is-sparta" aria-label="heart" onclick="toggle_like('{{ review.reviewId }}', 'heart')">
-                <span class="icon is-small">
-                    <i id="like-button" class="fa {{ class_heart }}" aria-hidden="true"></i>
-                </span>&nbsp;
-                <span class="like-num">
-                    {{ review.count_heart }}
-                </span>
-            </a>
-{#            <a href="#" class="card-link" onclick="likeReview('{{ review.review }}')">Like ❤ +{{ review.Like }}</a>#}
-            <button type="button" class="btn btn-primary" onclick="deleteReview('{{ review.review }}')">
-                <i class="fas fa-ban"></i>
-            </button>
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">{{ name }}</p>
+                    <p class="subtitle is-6">{{ category }}</p>
+                    <figure class="image is-3by1 star">
+                        <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                    </figure>
+                </div>
+            </div>
+            <div class="content">
+                {{ review }}
+            </div>
+            <div class="like">
+                <button id="like-button" class="{{ reviewNum }} like-button" onclick="toggleLike({{ reviewNum }})"></button>
+            </div>
         </div>
         </div>
-    {% endfor %}
-    </div>
+
+        {% endfor %}
+        </div>
+        <div class="modal">
+            <div class="modal-background" onclick="closePost()"></div>
+            <div class="review-post">
+                <div class="review-select">
+                    <p>카테고리 : </p>
+                    <select id="coffee-category-select" class="form-select coffee-category-select"
+                            onchange="getCategory(this.value)">
+                        <option selected>선택하세요!</option>
+                        <option value="콜드 브루">콜드 브루</option>
+                        <option value="브루드">브루드</option>
+                        <option value="에스프레소">에스프레소</option>
+                        <option value="프라푸치노">프라푸치노</option>
+                        <option value="블랜디드">블랜디드</option>
+                        <option value="피치오">피치오</option>
+                        <option value="티">티</option>
+                        <option value="기타">기타</option>
+                        <option value="주스(병음료)">주스(병음료)</option>
+                        {% for coffee in coffees %}
+                            <option value="{{ coffee.coffeeName }}">{{ coffee.coffeeName }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>음료 : </p>
+                    <select id="coffee-name-select" class="form-select coffee-name-select">
+                        <option selected>선택하세요!</option>
+                    </select>
+                    <p>평점 : </p>
+                    <select id="star-rating-select" class="form-select star-rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <textarea name="review-content" id="review-content" class="review-content" cols="30" rows="5">
+        </textarea>
+                <i class="far fa-star"></i>
+                <div class="button-group">
+                    <button type="button" class="btn btn-success review-button" onclick="reviewWrite()">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-light close-button" onclick="closePost()">
+                        <i class="fa fa-window-close" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 </body>
 </html>
