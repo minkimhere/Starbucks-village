@@ -23,9 +23,8 @@ def home():
         user_info = db.users.find_one({"id": payload["id"]})
         reviews = list(db.reviews.find({}))
         for review in reviews:
-            review["reviewId"] = str(review["_id"])
-            review["count_heart"] = db.likes.count_documents({"post_id": review["reviewId"], "type": "heart"})
-            review["heart_by_me"] = bool(db.likes.find_one({"post_id": review["reviewId"], "type": "heart", "id": payload['id']}))
+            review["review_id"] = str(review["_id"])
+            review["heart_by_me"] = bool(db.likes.find_one({"review_id": review["review_id"], "id": payload['id']}))
             print(review)
         return render_template('main.html', user_info=user_info, reviews=reviews)
 
@@ -117,27 +116,24 @@ def review_write():
 
     return jsonify({'msg': f'{nickname_receive}님의 리뷰 작성이 완료되었습니다!'})
 
-@app.route('/api/update_like', methods=['POST'])
+@app.route('/update_like', methods=['POST'])
 def update_like():
     token_receive = request.cookies.get('mytoken')
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         # 좋아요 수 변경
         user_info = db.users.find_one({"id": payload["id"]})
-        post_id_receive = request.form["post_id_give"]
-        type_receive = request.form["type_give"]
+        review_id_receive = request.form["review_id_give"]
         action_receive = request.form["action_give"]
         doc = {
-            "post_id": post_id_receive,
+            "review_id": review_id_receive,
             "id": user_info["id"],
-            "type": type_receive
         }
         if action_receive == "like":
             db.likes.insert_one(doc)
         else:
             db.likes.delete_one(doc)
-        count = db.likes.count_documents({"post_id": post_id_receive, "type": type_receive})
-        return jsonify({"result": "success", 'msg': 'updated', "count": count})
+        return jsonify({"result": "success", 'msg': 'updated'})
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 

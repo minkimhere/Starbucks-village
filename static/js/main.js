@@ -77,12 +77,33 @@ function reviewWrite() {
     });
 }
 
-function toggleLike(reviewId) {
+function toggleLike(reviewId, checklike) {
     console.log(reviewId)
-    let likeButton = $('#like-button');
+    console.log(checklike)
+    let likeButton = $(`#${reviewId}`);
     if (likeButton.hasClass("like-button")) {
-        likeButton.addClass("unlike-button").removeClass("like-button")
+        $.ajax({
+            type: "POST",
+            url: "/update_like",
+            data: {
+                review_id_give: reviewId,
+                action_give: "like"
+            },
+            success: function (response) {
+                likeButton.addClass("unlike-button").removeClass("like-button")
+            }
+        })
     } else if (likeButton.hasClass("unlike-button")) {
-        likeButton.addClass("like-button").removeClass("unlike-button")
+        $.ajax({
+            type: "POST",
+            url: "/update_like",
+            data: {
+                review_id_give: reviewId,
+                action_give: "unlike"
+            },
+            success: function (response) {
+                likeButton.addClass("like-button").removeClass("unlike-button")
+            }
+        })
     }
 }

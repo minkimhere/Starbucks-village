@@ -63,9 +63,9 @@
             {% set name = review.coffeeName %}
             {% set category = review.category %}
             {% set star = review.starRating %}
-            {% set review = review.review %}
-            {% set reviewNum = review.reviewId %}
-            {% set like = review.Like %}
+            {% set reviewContent = review.review %}
+            {% set reviewNum = review.review_id %}
+            {% set checkLike = review.heart_by_me %}
 
             {% if category == "주스(병음료)" %}
                 <div id="review-card" class="card 주스">
@@ -89,10 +89,14 @@
                 </div>
             </div>
             <div class="content">
-                {{ review }}
+                {{ reviewContent }}
             </div>
             <div class="like">
-                <button id="like-button" class="{{ reviewNum }} like-button" onclick="toggleLike({{ reviewNum }})"></button>
+                {% if checkLike == True %}
+                    <button id="{{ reviewNum }}" class="unlike-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                {% elif checkLike == False %}
+                    <button id="{{ reviewNum }}" class="like-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                {% endif %}
             </div>
         </div>
         </div>
