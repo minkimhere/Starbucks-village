@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <title>스타벅스 빌리지</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='reviewPost.css') }}">
+    <script src="{{ url_for('static', filename='reviewPost.js') }}"></script>
+    <link rel="stylesheet" href="../static/reviewPost.css">
+    <script src="../static/reviewPost.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script></head>
+<body>
+    <div class="review-post">
+        <div class="review-select">
+            <p>카테고리 : </p>
+            <select id="coffee-category-select" class="form-select coffee-category-select"
+                    onchange="getCategory(this.value)">
+                <option selected>선택하세요!</option>
+                <option value="콜드 브루">콜드 브루</option>
+                <option value="브루드">브루드</option>
+                <option value="에스프레소">에스프레소</option>
+                <option value="프라푸치노">프라푸치노</option>
+                <option value="블랜디드">블랜디드</option>
+                <option value="피치오">피치오</option>
+                <option value="티">티</option>
+                <option value="기타">기타</option>
+                <option value="주스(병음료)">주스(병음료)</option>
+                {% for coffee in coffees %}
+                    <option value="{{ coffee.coffeeName }}">{{ coffee.coffeeName }}</option>
+                {% endfor %}
+            </select>
+            <p>음료 : </p>
+            <select id="coffee-name-select" class="form-select coffee-name-select">
+                <option selected>선택하세요!</option>
+            </select>
+            <p>평점 : </p>
+            <select id="star-rating-select" class="form-select star-rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <textarea name="review-content" id="review-content" class="review-content" cols="30" rows="5" >
+        </textarea>
+        <div class="button-group">
+            <button type="button" class="btn btn-success review-button" onclick="reviewWrite()">
+                <i class="fas fa-save"></i>
+            </button>
+            <button type="button" class="btn btn-light close-button" onclick="closePost()">
+                <i class="fa fa-window-close" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

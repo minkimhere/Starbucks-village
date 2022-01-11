@@ -1,0 +1,107 @@
+* {
+    margin: 0 auto;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+}
+
+select {
+    text-align: left;
+    height: 34px;
+    background: none;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    box-shadow: none;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+select > option {
+    color: black;
+}
+
+.review-post {
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: auto;
+    background-color: #1e3932;
+}
+
+.review-select {
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 800px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.review-select > p {
+    margin: 0;
+    margin-top: 4px;
+    margin-right: 12px;
+    font-size: 16px;
+    color: white;
+}
+
+#coffee-category-select {
+    padding: 0 4px;
+    margin-right: 80px;
+    width: 120px;
+}
+
+#coffee-name-select {
+    padding: 0 4px;
+    margin-right: 80px;
+    width: 260px;
+}
+
+#star-rating-select {
+    padding: 0 4px;
+    width: 80px;
+}
+
+#review-content {
+    margin-bottom: 34px;
+    font-size: 16px;
+}
+
+.button-group {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 800px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review-button {
+    margin-right: 20px;
+    background-color: #00704a;
+    border-color: #00704a;
+    color: white;
+}
+
+.review-button:hover {
+    cursor: pointer;
+}
+
+.close-button {
+    background: none;
+    color: white;
+    border: 1px solid white;
+}
+
+.close-button:hover {
+    cursor: pointer;
+}
+
+.review-content {
+    margin: 0 auto;
+    margin-bottom: 40px;
+    display: block;
+    width: 800px;
+}

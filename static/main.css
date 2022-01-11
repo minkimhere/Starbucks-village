@@ -1,0 +1,39 @@
+.card {
+    display: inline-block;
+}
+
+.title {
+    width: 1500px;
+    color: green;
+    height: 150px;
+    text-align: center;
+    padding: 30px;
+    font-size: 4em;
+    margin: 10px 0 35px 0;
+    text-shadow: 5px 5px 15px green;
+    position: relative;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coffee-category {
+    margin: 10px;
+}
+
+.card-content {
+    text-align: center;
+}
+
+.coffee-Name {
+    padding-bottom: 20px;
+    display: block;
+    text-align: center;
+}
+
+.card-link {
+    text-decoration: none;
+}
