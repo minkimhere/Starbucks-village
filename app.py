@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
-db = client.miniproject
+db = client.starbucksVillage
 
 # SECRET_KEY = 'SPARTA'
 
@@ -24,7 +24,7 @@ def home():
 def mypage():
     # token_receive = request.cookies.get('mytoken')
     nickname = "땡땡"
-    return render_template('myPage.html', nickname=nickname)
+    return render_template('myPage.html', nickname=nickname, reviews = reviews)
     # try:
     #     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     #     user_info = db.user.find_one({"id": payload['id']})
