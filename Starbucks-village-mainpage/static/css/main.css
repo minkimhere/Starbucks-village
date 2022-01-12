@@ -418,6 +418,7 @@ select > option {
 }
 .right-content > p.title > span > i {
     color: #bbb;
+    cursor: pointer;
 }
 .right-content > p.title > span.delete_auth {
     display: inline;

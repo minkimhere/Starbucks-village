@@ -23,6 +23,7 @@ def home():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         user_info = db.users.find_one({"id": payload["id"]})
         reviews = list(db.reviews.find({}))
+        reviews.reverse()
         for review in reviews:
             review["review_id"] = str(review["_id"])
             review["heart_by_me"] = bool(db.likes.find_one({"review_id": review["review_id"], "id": payload['id']}))
@@ -164,11 +165,10 @@ def update_like():
 @app.route('/api/delete_review', methods=['POST'])
 def delete_word():
     # 단어 삭제하기
-    review_recive = request.form["review_give"]
+    id_receive = request.form["id_give"]
+    db.reviews.delete_one({"_id": ObjectId(id_receive)})
 
-    db.reviews.delete_one({"review": review_recive})
-
-    return jsonify({'result': 'success', 'msg': '리뷰 삭제'})
+    return jsonify({'result': 'success', 'msg': '리뷰가 삭제되었습니다!'})
 
 @app.route('/api/modal', methods=['POST'])
 def card_modal():

@@ -77,10 +77,8 @@ function reviewWrite() {
     });
 }
 
-function toggleLike(reviewId, checklike) {
+function toggleLike(reviewId) {
     event.stopPropagation()
-    console.log(reviewId)
-    console.log(checklike)
     let likeButton = $(`#${reviewId}`);
     likeButton.siblings('span').empty()
     $('.left-content > .like > span').empty()
@@ -123,10 +121,8 @@ function toggleLike(reviewId, checklike) {
 
 $(function(){
     $('.card').on('click',function(e){
-        if(!$(e.target).hasClass('star')){
-            $('.modal-box-content').empty()
+        $('.modal-box-content').empty()
             let id = $(this).find('.like').children('button').attr('id')
-            console.log(id)
             $.ajax({
                 type: 'POST',
                 url: '/api/modal',
@@ -155,7 +151,7 @@ $(function(){
                                         </div>
                                     </div>
                                     <div class="right-content">
-                                        <p class="title is-3">${name} <span class="delete_auth"><i class="fas fa-trash-alt"></i></span></p>
+                                        <p class="title is-3">${name} <span class="delete_auth"><i class="fas fa-trash-alt" onclick="delete_review('${id}')"></i></span></p>
                                         <p class="subtitle is-6">${category}</p>
                                         <figure class="image is-3by1 star">
                                             <img src="../static/img/star${star}.svg" alt="${star}점">
@@ -181,7 +177,6 @@ $(function(){
             $('.modal-post').show()
             let value_top = window.innerHeight / 2 - $('.modal-content').outerHeight() / 2
             $('.modal-content').css({'top': value_top})
-        }
 
     })
 
@@ -189,3 +184,18 @@ $(function(){
         $('.modal-post').hide()
     })
 })
+
+function delete_review(reviewId){
+    $.ajax({
+        type: 'POST',
+        url: '/api/delete_review',
+        data: {
+            id_give: reviewId
+        },
+        success: function(response){
+            alert(response['msg'])
+            window.location.reload()
+        }
+    })
+
+}
