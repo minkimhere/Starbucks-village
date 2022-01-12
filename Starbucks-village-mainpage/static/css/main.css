@@ -96,6 +96,7 @@ header h1 a {
 }
 .add_button button span {
     opacity: 0;
+    font-size: 0.8rem;
 }
 .add_button:hover {
     transform: translateY(-5px);

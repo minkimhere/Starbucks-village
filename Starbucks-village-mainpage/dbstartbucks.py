@@ -3,14 +3,16 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 
 from pymongo import MongoClient
-client = MongoClient('localhost', 27017)
-db = client.starbucksVillage2
+# client = MongoClient('mongodb://test:15.165.204.201', 27017)
+client = MongoClient('mongodb://15.165.204.201', 27017, username="test", password="test")
+db = client.starbucksVillage
 
 
 # headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 # data = requests.get('https://www.starbucks.co.kr/menu/drink_list.do',headers=headers)
 
-dr = webdriver.Chrome('./chromedriver.exe')
+
+dr = webdriver.Chrome('./chromedriver')
 dr.get("https://www.starbucks.co.kr/menu/drink_list.do")
 
 html_source = dr.page_source

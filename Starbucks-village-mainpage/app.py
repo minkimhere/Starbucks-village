@@ -12,7 +12,8 @@ app = Flask(__name__)
 
 SECRET_KEY = 'SPARTA'
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb://15.165.204.201', 27017, username="test", password="test")
+# client = MongoClient('localhost', 27017)
 db = client.starbucksVillage
 
 

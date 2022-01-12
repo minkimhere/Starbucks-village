@@ -8,6 +8,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="스타벅스 빌리지(STARBUCKS VILLAGE)"/>
+    <meta property="og:description" content="스타벅스 음료를 먹고 후기를 남겨주세요!"/>
+    <meta property="og:image" content="{{ url_for('static', filename='img/og_image.png') }}"/>
 
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
@@ -33,6 +36,14 @@
             max-width: 750px;
             margin: auto;
         }
+        h1 {
+            text-indent: -9999px;
+            background: url("../static/img/logo_green.svg") no-repeat center / cover;
+            width: 42rem;
+            height: 2.7rem;
+            margin-bottom: 2rem!important;
+        }
+
 
         .title {
             font-weight: 800;
