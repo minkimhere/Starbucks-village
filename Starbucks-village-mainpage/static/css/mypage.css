@@ -1,0 +1,164 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #4a4a4a;
+}
+body {
+    margin: 0;
+    width: 100%;
+}
+
+header {
+    padding-top: 50px;
+    width 100%;
+    height: 140px;
+    background-color: #017143;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    display: inline-block;
+    width: 538px;
+    height: 34px;
+}
+
+header h1 a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: url("../img/logo.svg") no-repeat center / cover;
+    text-indent: -9999px;
+}
+
+.log-out {
+    position: absolute;
+    top: 58px;
+    right: 30px;
+}
+.log-out a {
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.nick_hello {
+    width: 100%;
+    height: 210px;
+    background-color: #ededed;
+    border-top: 5px solid #fff;
+    text-align: center;
+    padding-top: 50px;
+    position: relative;
+}
+.nick_hello::before{
+    content:"";
+    display: block;
+    width: 40%;
+    border-bottom:  1px solid #4a4a4a;
+    position: absolute;
+    left: 30%;
+    bottom: 75px;
+}
+.nick_hello p {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.nick_hello p span {
+    font-size: 50px;
+    font-weight: 700;
+}
+.my_review {
+    width: 70%;
+    margin: 0 auto;
+}
+.my_review h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 50px;
+}
+
+.card-box {
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-start;
+    width: 95%;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-bottom: 2%;
+    width: 24%;
+    cursor: pointer;
+}
+
+.media-content {
+    text-align: center;
+}
+.media-content > .title {
+    display: inline-block;
+    width: 100%;
+    letter-spacing: -0.08em;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.media-content > .subtitle {
+    letter-spacing: -0.04em;
+}
+.star {
+    width: 30%;
+    margin: -15% auto 0;
+}
+.content {
+    text-align: center;
+    margin-top: -15%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    word-break: break-all;
+
+}
+.like {
+    text-align: center;
+}
+
+.like > span {
+    font-size: 0.8rem;
+    vertical-align: 0.25rem;
+    margin-left: 0.1rem;
+}
+.like-button {
+    width: 20px;
+    height: 20px;
+    background: url("../img/unchecked.svg") no-repeat center / cover;
+    border: none;
+}
+
+.like-button:hover {
+    cursor: pointer;
+}
+
+.unlike-button {
+    width: 20px;
+    height: 20px;
+    background: url("../img/checked.svg") no-repeat center / cover;
+    border: none;
+}
+
+.unlike-button:hover {
+    cursor: pointer;
+}
+

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>스타벅스빌리지 | 마이페이지</title>
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../static/css/mypage.css">
+    <script>
+        function logout(){
+            $.removeCookie('mytoken', {path: '/'});
+            alert('로그아웃 되었습니다!')
+            window.location.href='/login'
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="/">스타벅스 빌리지</a></h1>
+        <div class="log-out"><a onclick="logout()">로그아웃</a></div>
+    </header>
+    <main>
+        <div class="nick_hello">
+            <p><span>{{nickname}}</span>님 안녕하세요!</p>
+        </div>
+        <div class="my_review">
+            <h2>내가 작성한 리뷰</h2>
+            <div class="card-box">
+                {% for review in reviews %}
+                    {% set image = review.image %}
+                    {% set name = review.coffeeName %}
+                    {% set category = review.category %}
+                    {% set star = review.starRating %}
+                    {% set reviewContent = review.review %}
+                    {% set reviewNum = review.review_id %}
+                    {% set checkLike = review.heart_by_me %}
+                    {% set like = review.Like %}
+
+                    {% if category == "주스(병음료)" %}
+                        <div id="review-card" class="card 주스">
+                    {% else %}
+                        <div id="review-card" class="card {{ category }}">
+                    {% endif %}
+
+                <div class="card-image">
+                    <figure class="image image is-1by1">
+                        <img src="{{ image }}" alt="{{ name }}">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4">{{ name }}</p>
+                            <p class="subtitle is-6">{{ category }}</p>
+                            <figure class="image is-3by1 star">
+                                <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="content">
+                        {{ reviewContent }}
+                    </div>
+                    <div class="like">
+                        {% if checkLike == True %}
+                            <button id="{{ reviewNum }}" class="unlike-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                        {% elif checkLike == False %}
+                            <button id="{{ reviewNum }}" class="like-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                        {% endif %}
+                        <span>{{ like }}</span>
+                    </div>
+                </div>
+        </div>
+
+        {% endfor %}
+        </div>
+        </div>
+        <div class="modal modal-post">
+        <div class="modal-background modal-post-background"></div>
+        <div class="modal-content">
+            <div class="box modal-box">
+                <button class="delete" aria-label="close"></button>
+                <div class="modal-box-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+</body>
+</html>

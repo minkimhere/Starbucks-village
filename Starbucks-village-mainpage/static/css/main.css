@@ -1,0 +1,465 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #4a4a4a;
+}
+body {
+    margin: 0;
+    width: 100%;
+    position: relative;
+}
+
+header {
+    padding-top: 50px;
+    width: 100%;
+    height: 300px;
+    background-color: #017143;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    display: inline-block;
+    width: 538px;
+    height: 34px;
+}
+
+header h1 a {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: url("../img/logo.svg") no-repeat center / cover;
+    text-indent: -9999px;
+}
+
+.mini_nav > div {
+    position: absolute;
+    top: 58px;
+    right: 30px;
+}
+.mini_nav > div a {
+    color: #fff;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.mini_nav > div a:last-of-type {
+    margin-left: 15px;
+}
+.category_nav{
+    margin: 150px auto 0;
+    width: 45%;
+    position: relative;
+}
+.category_nav::before{
+    content: '';
+    display: block;
+    width: 10%;
+    position: absolute;
+    left: 45%;
+    top: -50px;
+    border-top: 1px solid #fff;
+}
+.category_nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.category_nav ul li a {
+    color: #fff;
+    font-weight: 500;
+}
+.category_nav ul li.selected > a {
+    color: #f6f5ef;
+    font-weight: 700;
+    border-bottom: 1px solid #fff;
+}
+
+.add_button {
+    position: fixed;
+    bottom: 20px;
+    right:  30px;
+    transform: translateY(0);
+    transition: 0.3s;
+}
+.add_button button {
+    width: 4vw;
+    height: 4vw;
+    border-radius: 2vw;
+    border: 0;
+    background: #1d3831 url("../img/add.svg") no-repeat center / 50%;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+    cursor: pointer;
+
+}
+.add_button button span {
+    opacity: 0;
+}
+.add_button:hover {
+    transform: translateY(-5px);
+}
+.add_button:hover button {
+    background-image: none;
+}
+.add_button:hover button span {
+    opacity: 100;
+    color: #fff;
+    transition: 0.3s;
+}
+
+
+/*.card {*/
+/*    display: inline-block;*/
+/*    margin: 10px;*/
+/*}*/
+
+.review-close {
+    display: none;
+}
+
+.review-open {
+    display: block;
+}
+
+
+.wrapper {
+    width: 70%;
+    margin: 0 auto;
+}
+
+/*.coffee-category {*/
+/*    margin: 10px;*/
+/*}*/
+
+/*.form-group {*/
+/*    padding: 15px;*/
+/*}*/
+
+/*.coffee-Name {*/
+/*    padding-bottom: 20px;*/
+/*    display: block;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.card-link {*/
+/*    text-decoration: none;*/
+/*}*/
+
+.wrapper > .columns {
+    margin-top: 50px;
+}
+.card {
+    margin-bottom: 15%;
+}
+
+.media-content {
+    text-align: center;
+}
+.media-content > .title {
+    display: inline-block;
+    width: 100%;
+    letter-spacing: -0.08em;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.media-content > .subtitle {
+    letter-spacing: -0.04em;
+}
+.star {
+    width: 30%;
+    margin: -15% auto 0;
+}
+.content {
+    text-align: center;
+    margin-top: -15%;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.like {
+    text-align: center;
+}
+
+.like > span {
+    font-size: 0.8rem;
+    vertical-align: 0.25rem;
+    margin-left: 0.1rem;
+}
+.nickname {
+    font-size: 0.75rem;
+    font-weight: 300;
+    text-align: center;
+    margin: 3% 0 -4%;
+}
+.nickname p {
+    color: #aaa;
+}
+
+/**/
+
+select {
+    text-align: left;
+    height: 34px;
+    background: none;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    box-shadow: none;
+    font-size: 16px;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+select > option {
+    color: black;
+    font-size: 16px;
+}
+
+/*.review-post-wrap {*/
+/*    width: 100vw;*/
+/*    height: 100vh;*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    background: rgba(10,10,10,.86);*/
+/*    display: none;*/
+/*}*/
+.review-post {
+    font-size: 16px;
+    margin: auto;
+    width: 100%;
+    height: auto;
+    background-color: #1e3932;
+    position: fixed;
+    bottom: 0;
+}
+
+.review-select {
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 800px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.review-select > p {
+    margin: 0;
+    margin-top: 4px;
+    margin-right: 12px;
+    font-size: 16px;
+    color: white;
+}
+
+#coffee-category-select {
+    padding: 0 4px;
+    margin-right: 80px;
+    width: 120px;
+}
+
+#coffee-name-select {
+    padding: 0 4px;
+    margin-right: 80px;
+    width: 260px;
+}
+
+#star-rating-select {
+    padding: 0 4px;
+    width: 80px;
+}
+
+#review-content {
+    margin-bottom: 34px;
+    font-size: 16px;
+}
+
+.button-group {
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 800px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review-button {
+    margin-right: 20px;
+    background: none;
+    color: black;
+    text-decoration: none;
+    border: none;
+}
+
+.fa-floppy-o {
+    color: white;
+    font-size: 30px;
+}
+
+.review-button:hover {
+    cursor: pointer;
+}
+
+.close-button {
+    background: none;
+    color: white;
+    box-shadow: none;
+    text-decoration: none;
+    border: none;
+}
+
+.fa-window-close {
+    color: #fff;
+    font-size: 30px;
+}
+
+.close-button:hover {
+    cursor: pointer;
+}
+
+.review-content {
+    margin: 0 auto;
+    margin-bottom: 40px;
+    display: block;
+    width: 800px;
+}
+
+.card-box {
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: flex-start;
+    width: 95%;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-bottom: 2%;
+    width: 24%;
+    cursor: pointer;
+}
+
+.like-button {
+    width: 20px;
+    height: 20px;
+    background: url("../img/unchecked.svg") no-repeat center / cover;
+    border: none;
+}
+
+.like-button:hover {
+    cursor: pointer;
+}
+
+.unlike-button {
+    width: 20px;
+    height: 20px;
+    background: url("../img/checked.svg") no-repeat center / cover;
+    border: none;
+}
+
+.unlike-button:hover {
+    cursor: pointer;
+}
+
+.modal-content {
+    position: absolute;
+    left: 30%;
+    width: 40%;
+    min-height: 35%;
+}
+.modal-box {
+    height: 100%;
+}
+.delete {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    z-index: 3;
+}
+.modal-box-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.left-content {
+    flex-basis: 30%;
+}
+
+.right-content {
+    flex-basis: 65%;
+    position: relative;
+}
+.right-content > p.title {
+    margin-top: 5%;
+    letter-spacing: -0.03em;
+}
+.right-content > p.title {
+    margin-top: 5%;
+    letter-spacing: -0.03em;
+}
+.right-content > p.title > span {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    display: none;
+}
+.right-content > p.title > span > i {
+    color: #bbb;
+}
+.right-content > p.title > span.delete_auth {
+    display: inline;
+}
+.right-content > p.subtitle{
+    margin-left: 1%;
+}
+.right-content > .star {
+    margin-left: 1%;
+}
+.right-content::before{
+    content: "";
+    display: block;
+    width: 2.5rem;
+    border-top: 3px solid #4a4a4a;
+    position: absolute;
+    top: 10rem;
+    left: 1rem;
+}
+.modal-review-content {
+    margin-left: 1%;
+    font-size: 1.05rem;
+}
+.left-content > .like {
+    margin-top: 1rem;
+}
+.left-content > .like > .like-button {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+.left-content > .like > .unlike-button {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+.left-content > .like > span {
+    font-size: 1.2rem;
+    margin-left: 0.2rem;
+    vertical-align: 0.1rem;
+}
+.right-content > .nickname {
+    margin-left: 2%;
+    text-align: left;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
