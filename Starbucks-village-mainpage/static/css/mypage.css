@@ -161,4 +161,97 @@ header h1 a {
 .unlike-button:hover {
     cursor: pointer;
 }
+.modal-content {
+    position: absolute;
+    left: 30%;
+    width: 40%;
+    min-height: 35%;
+}
+.modal-box {
+    height: 100%;
+}
+.delete {
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    z-index: 3;
+}
+.modal-box-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.left-content {
+    flex-basis: 30%;
+}
 
+.right-content {
+    flex-basis: 65%;
+    position: relative;
+}
+.right-content > p.title {
+    margin-top: 5%;
+    letter-spacing: -0.03em;
+}
+.right-content > p.title {
+    margin-top: 5%;
+    letter-spacing: -0.03em;
+}
+.right-content > p.title > span {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    display: none;
+}
+.right-content > p.title > span > i {
+    color: #bbb;
+}
+.right-content > p.title > span.delete_auth {
+    display: inline;
+}
+.right-content > p.subtitle{
+    margin-left: 1%;
+}
+.right-content > .star {
+    margin-left: 1%;
+}
+.right-content::before{
+    content: "";
+    display: block;
+    width: 2.5rem;
+    border-top: 3px solid #4a4a4a;
+    position: absolute;
+    top: 10rem;
+    left: 1rem;
+}
+.modal-review-content {
+    margin-left: 1%;
+    font-size: 1.05rem;
+}
+.left-content > .like {
+    margin-top: 1rem;
+}
+.left-content > .like > .like-button {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+.left-content > .like > .unlike-button {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+.left-content > .like > span {
+    font-size: 1.2rem;
+    margin-left: 0.2rem;
+    vertical-align: 0.1rem;
+}
+.right-content > .nickname {
+    font-weight: 300;
+    margin: 3% 0 -4% 2%;
+    text-align: left;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+.nickname p {
+    color: #aaa;
+}

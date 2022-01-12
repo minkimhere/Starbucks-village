@@ -82,7 +82,7 @@ function toggleLike(reviewId, checklike) {
     console.log(reviewId)
     console.log(checklike)
     let likeButton = $(`#${reviewId}`);
-    likeButton.siblings('.like-num').empty()
+    likeButton.siblings('span').empty()
     $('.left-content > .like > span').empty()
     if (likeButton.hasClass("like-button")) {
         $.ajax({
@@ -96,7 +96,7 @@ function toggleLike(reviewId, checklike) {
                 likeButton.addClass("unlike-button").removeClass("like-button")
                 $('.left-content > .like > .like-button').addClass("unlike-button").removeClass("like-button")
                 let like_num = response['result_like']['Like']
-                likeButton.siblings('.like-num').append(like_num)
+                likeButton.siblings('span').append(like_num)
                 $('.left-content > .like > span').append(like_num)
             }
         })
@@ -112,7 +112,7 @@ function toggleLike(reviewId, checklike) {
                 likeButton.addClass("like-button").removeClass("unlike-button")
                 $('.left-content > .like > .unlike-button').addClass("like-button").removeClass("unlike-button")
                 let like_num = response['result_like']['Like']
-                likeButton.siblings('.like-num').append(like_num)
+                likeButton.siblings('span').append(like_num)
                 $('.left-content > .like > span').append(like_num)
             }
         })
