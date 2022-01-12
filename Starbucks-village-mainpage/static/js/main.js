@@ -172,12 +172,11 @@ $(function(){
                     if(delete_auth == false){
                         $('.right-content > .title > span').removeClass('delete_auth')
                     }
+                    $('.modal-post').show()
+                    let value_top = window.innerHeight / 2 - $('.modal-content').outerHeight() / 2
+                    $('.modal-content').css({'top': value_top})
                 }
             })
-            $('.modal-post').show()
-            let value_top = window.innerHeight / 2 - $('.modal-content').outerHeight() / 2
-            $('.modal-content').css({'top': value_top})
-
     })
 
     $('.modal-post-background,.delete').on('click',function(){

@@ -406,11 +406,8 @@ select > option {
 }
 .right-content > p.title {
     margin-top: 5%;
-    letter-spacing: -0.03em;
-}
-.right-content > p.title {
-    margin-top: 5%;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.08em;
+    font-size: 1.7rem;
 }
 .right-content > p.title > span {
     font-size: 1.2rem;
@@ -436,7 +433,7 @@ select > option {
     width: 2.5rem;
     border-top: 3px solid #4a4a4a;
     position: absolute;
-    top: 10rem;
+    top: 9.7rem;
     left: 1rem;
 }
 .modal-review-content {
