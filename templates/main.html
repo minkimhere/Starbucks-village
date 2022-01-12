@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"#}
+{#          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"#}
+{#          crossorigin="anonymous">#}
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"#}
+{#            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"#}
+{#            crossorigin="anonymous"></script>#}
+    <title>스타벅스 빌리지</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script src="../static/js/main.js"></script>
+    <script>
+        function openPost(){
+            $('.addPost').show()
+        }
+        function closePost(){
+            $('.addPost').hide()
+        }
+
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="/">스타벅스 빌리지</a></h1>
+        <div class="mini_nav">
+            <div class="log-out"><a href="/mypage">마이페이지</a><a onclick="logout()">로그아웃</a></div>
+            <div class="log-in"><a href="/login">로그인</a><a href="/signup">회원가입</a></div>
+        </div>
+        <nav class="category_nav">
+            <ul>
+                <li class="selected"><a href="#">모두보기</a></li>
+                <li><a href="#">콜드 브루</a></li>
+                <li><a href="#">브루드</a></li>
+                <li><a href="#">에스프레소</a></li>
+                <li><a href="#">프라푸치노</a></li>
+                <li><a href="#">블랜디드</a></li>
+                <li><a href="#">피치오</a></li>
+                <li><a href="#">티</a></li>
+                <li><a href="#">기타</a></li>
+                <li><a href="#">주스(병음료)</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="add_button">
+        <button onclick="openPost()"><span>리뷰남기기</span></button>
+    </div>
+    <!-- Example split danger button -->
+{#    <div class="coffee-category">#}
+{#        <label for="prod1">Beverage</label>#}
+{#        <select id="prod1" onchange="sortCoffee(this.value)">#}
+{#            <option value="모두보기" selected>모두보기</option>#}
+{#            <option value="콜드 브루">콜드 브루</option>#}
+{#            <option value="브루드">브루드</option>#}
+{#            <option value="에스프레소">에스프레소</option>#}
+{#            <option value="프라푸치노">프라푸치노</option>#}
+{#            <option value="블랜디드">블랜디드</option>#}
+{#            <option value="피치오">피치오</option>#}
+{#            <option value="티">티</option>#}
+{#            <option value="기타">기타</option>#}
+{#            <option value="주스(병음료)">주스(병음료)</option>#}
+{#        </select>#}
+{#    </div>#}
+
+    <div class="wrapper">
+{#        {% for review in reviews %}#}
+{#            <div id="review-card {{ review.category }}" class="card" style="width: 18rem;">#}
+{#                <img src="{{ review.image }}"#}
+{#                     class="card-img-top" alt="...">#}
+{#                <div class="card-body">#}
+{#                    <p><h5 class="coffee-Name">{{ review.coffeeName }}</h5>#}
+{#                </div>#}
+{#                <form>#}
+{#                    <div class="form-group">#}
+{#                        <label for="reviewtextarea1">{{ review.review }}</label>#}
+{#                    </div>#}
+{#                </form>#}
+{#                <ul class="list-group list-group-flush">#}
+{#                    {% if review.starRating == '1' %}#}
+{#                        <img src="../static/star1.svg"/>#}
+{#                    {% elif review.starRating == '2' %}#}
+{#                        <img src="../static/star2.svg"/>#}
+{#                    {% elif review.starRating == '3' %}#}
+{#                        <img src="../static/star3.svg"/>#}
+{#                    {% elif review.starRating == '4' %}#}
+{#                        <img src="../static/star4.svg"/>#}
+{#                    {% elif review.starRating == '5' %}#}
+{#                        <img src="../static/star5.svg"/>#}
+{#                    {% endif %}#}
+{#                </ul>#}
+{#                <div class="card-body">#}
+{#                    <a href="#" class="card-link">Like ❤</a>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+        <div class="columns is-3">
+                <div class="column c1">
+                    {% for review in reviews %}
+                        {% set image = review.image %}
+                        {% set name = review.coffeeName %}
+                        {% set category = review.category %}
+                        {% set star = review.starRating %}
+                        {% set reviewNum = review.review_id %}
+                        {% if loop.index % 4 == 1 %}
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image image is-1by1">
+                                        <img src="{{ image }}" alt="{{ name }}">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">{{ name }}</p>
+                                            <p class="subtitle is-6">{{ category }}</p>
+                                            <figure class="image is-3by1 star">
+                                                <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        {{ review.review }}
+                                    </div>
+                                    <div class="like">
+                                        <input id="{{ reviewNum }}" type="checkbox">
+                                        <label for="{{ reviewNum }}" class="unchecked"></label>
+                                        <label for="{{ reviewNum }}">{{ review.Like }}</label>
+                                    </div>
+                                    <div class="nickname">
+                                       <p>{{ review.nickname }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="column c2">
+                    {% for review in reviews %}
+                        {% set image = review.image %}
+                        {% set name = review.coffeeName %}
+                        {% set category = review.category %}
+                        {% set star = review.starRating %}
+                        {% set reviewNum = review.review_id %}
+                        {% if loop.index % 4 == 2 %}
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image image is-1by1">
+                                        <img src="{{ image }}" alt="{{ name }}">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">{{ name }}</p>
+                                            <p class="subtitle is-6">{{ category }}</p>
+                                            <figure class="image is-3by1 star">
+                                                <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        {{ review.review }}
+                                    </div>
+                                    <div class="like">
+                                        <input id="{{ reviewNum }}" type="checkbox">
+                                        <label for="{{ reviewNum }}" class="unchecked"></label>
+                                        <label for="{{ reviewNum }}">{{ review.Like }}</label>
+                                    </div>
+                                    <div class="nickname">
+                                       <p>{{ review.nickname }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="column c3">
+                    {% for review in reviews %}
+                        {% set image = review.image %}
+                        {% set name = review.coffeeName %}
+                        {% set category = review.category %}
+                        {% set star = review.starRating %}
+                        {% set reviewNum = review.review_id %}
+                        {% if loop.index % 4 == 3 %}
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image image is-1by1">
+                                        <img src="{{ image }}" alt="{{ name }}">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">{{ name }}</p>
+                                            <p class="subtitle is-6">{{ category }}</p>
+                                            <figure class="image is-3by1 star">
+                                                <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        {{ review.review }}
+                                    </div>
+                                    <div class="like">
+                                        <input id="{{ reviewNum }}" type="checkbox">
+                                        <label for="{{ reviewNum }}" class="unchecked"></label>
+                                        <label for="{{ reviewNum }}">{{ review.Like }}</label>
+                                    </div>
+                                    <div class="nickname">
+                                       <p>{{ review.nickname }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="column c4">
+                    {% for review in reviews %}
+                        {% set image = review.image %}
+                        {% set name = review.coffeeName %}
+                        {% set category = review.category %}
+                        {% set star = review.starRating %}
+                        {% set reviewNum = review.review_id %}
+                        {% if loop.index % 4 == 0 %}
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image image is-1by1">
+                                        <img src="{{ image }}" alt="{{ name }}">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="media">
+                                        <div class="media-content">
+                                            <p class="title is-4">{{ name }}</p>
+                                            <p class="subtitle is-6">{{ category }}</p>
+                                            <figure class="image is-3by1 star">
+                                                <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        {{ review.review }}
+                                    </div>
+                                    <div class="like">
+                                        <input id="{{ reviewNum }}" type="checkbox">
+                                        <label for="{{ reviewNum }}" class="unchecked"></label>
+                                        <label for="{{ reviewNum }}">{{ review.Like }}</label>
+                                    </div>
+                                    <div class="nickname">
+                                       <p>{{ review.nickname }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+    </div>
+    <div class="modal addPost">
+        <div class="modal-background" onclick="closePost()"></div>
+        <div class="review-post">
+        <div class="review-select">
+            <p>카테고리 : </p>
+            <select id="coffee-category-select" class="form-select coffee-category-select"
+                    onchange="getCategory(this.value)">
+                <option selected>선택하세요!</option>
+                <option value="콜드 브루">콜드 브루</option>
+                <option value="브루드">브루드</option>
+                <option value="에스프레소">에스프레소</option>
+                <option value="프라푸치노">프라푸치노</option>
+                <option value="블랜디드">블랜디드</option>
+                <option value="피치오">피치오</option>
+                <option value="티">티</option>
+                <option value="기타">기타</option>
+                <option value="주스(병음료)">주스(병음료)</option>
+                {% for coffee in coffees %}
+                    <option value="{{ coffee.coffeeName }}">{{ coffee.coffeeName }}</option>
+                {% endfor %}
+            </select>
+            <p>음료 : </p>
+            <select id="coffee-name-select" class="form-select coffee-name-select">
+                <option selected>선택하세요!</option>
+            </select>
+            <p>평점 : </p>
+            <select id="star-rating-select" class="form-select star-rating">
+                <option value="1" >1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <textarea name="review-content" id="review-content" class="review-content" cols="30" rows="5" >
+        </textarea>
+        <i class="far fa-star"></i>
+        <div class="button-group">
+            <button type="button" class="btn btn-success review-button" onclick="reviewWrite()">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-light close-button" >
+                <i class="fa fa-window-close fa-10x" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    </div>
+    <div class="modal modal-post">
+        <div class="modal-background modal-post-background"></div>
+        <div class="modal-content">
+            <div class="box modal-box">
+                <button class="delete" aria-label="close"></button>
+                <div class="modal-box-content">
+                    <div class="left-content">
+                        <figure class="image image is-1by1">
+                            <img src="../static/img/test.jpg" alt="{{ name }}">
+                        </figure>
+                        <div class="like">
+                            <input id="{{ reviewNum }}" type="checkbox">
+                            <label for="{{ reviewNum }}" class="unchecked"></label>
+                            <label for="{{ reviewNum }}">0</label>
+                        </div>
+                    </div>
+                    <div class="right-content">
+                        <p class="title is-3">아이스 카페 아메리카노 <span class="delete_auth"><i class="fas fa-trash-alt"></i></span></p>
+                        <p class="subtitle is-6">에스프레소</p>
+                        <figure class="image is-3by1 star">
+                            <img src="../static/img/star5.svg" alt="5점">
+                        </figure>
+                        <div class="modal-review-content">
+
+                        </div>
+                        <div class="nickname">
+                            <p>by. 땡땡</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
