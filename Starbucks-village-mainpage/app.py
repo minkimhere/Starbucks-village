@@ -49,6 +49,7 @@ def mypage():
     nickname = user_info['nickname']
 
     reviews = list(db.reviews.find({"nickname": nickname}))
+    reviews.reverse()
     for review in reviews:
         review["review_id"] = str(review["_id"])
         review["heart_by_me"] = bool(db.likes.find_one({"review_id": review["review_id"], "id": payload['id']}))
