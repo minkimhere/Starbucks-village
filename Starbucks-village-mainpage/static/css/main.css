@@ -110,12 +110,6 @@ header h1 a {
     transition: 0.3s;
 }
 
-
-/*.card {*/
-/*    display: inline-block;*/
-/*    margin: 10px;*/
-/*}*/
-
 .review-close {
     display: none;
 }
@@ -130,29 +124,37 @@ header h1 a {
     margin: 0 auto;
 }
 
-/*.coffee-category {*/
-/*    margin: 10px;*/
-/*}*/
-
-/*.form-group {*/
-/*    padding: 15px;*/
-/*}*/
-
-/*.coffee-Name {*/
-/*    padding-bottom: 20px;*/
-/*    display: block;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.card-link {*/
-/*    text-decoration: none;*/
-/*}*/
-
-.wrapper > .columns {
+.card-box {
+    margin: 0 auto;
     margin-top: 50px;
+    display: flex;
+    justify-content: flex-start;
+    width: 95%;
+    height: auto;
+    flex-wrap: wrap;
 }
+
 .card {
-    margin-bottom: 15%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    margin-bottom: 2%;
+    width: 24%;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: 0.5s;
+}
+.card:hover {
+    transform: translateY(-0.5rem);
+}
+.card > .card-image > figure {
+    overflow: hidden;
+}
+.card > .card-image > figure > img {
+    transform: scale(1);
+    transition: 0.3s;
+}
+.card:hover > .card-image > figure > img {
+    transform: scale(1.02);
 }
 
 .media-content {
@@ -188,6 +190,27 @@ header h1 a {
 }
 .like {
     text-align: center;
+}
+.like-button {
+    width: 20px;
+    height: 20px;
+    background: url("../img/unchecked.svg") no-repeat center / cover;
+    border: none;
+}
+
+.like-button:hover {
+    cursor: pointer;
+}
+
+.unlike-button {
+    width: 20px;
+    height: 20px;
+    background: url("../img/checked.svg") no-repeat center / cover;
+    border: none;
+}
+
+.unlike-button:hover {
+    cursor: pointer;
 }
 
 .like > span {
@@ -227,15 +250,6 @@ select > option {
     font-size: 16px;
 }
 
-/*.review-post-wrap {*/
-/*    width: 100vw;*/
-/*    height: 100vh;*/
-/*    position: fixed;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    background: rgba(10,10,10,.86);*/
-/*    display: none;*/
-/*}*/
 .review-post {
     font-size: 16px;
     margin: auto;
@@ -332,46 +346,6 @@ select > option {
     margin-bottom: 40px;
     display: block;
     width: 800px;
-}
-
-.card-box {
-    margin: 0 auto;
-    margin-top: 50px;
-    display: flex;
-    justify-content: flex-start;
-    width: 95%;
-    height: auto;
-    flex-wrap: wrap;
-}
-
-.card {
-    margin-left: 0.5%;
-    margin-right: 0.5%;
-    margin-bottom: 2%;
-    width: 24%;
-    cursor: pointer;
-}
-
-.like-button {
-    width: 20px;
-    height: 20px;
-    background: url("../img/unchecked.svg") no-repeat center / cover;
-    border: none;
-}
-
-.like-button:hover {
-    cursor: pointer;
-}
-
-.unlike-button {
-    width: 20px;
-    height: 20px;
-    background: url("../img/checked.svg") no-repeat center / cover;
-    border: none;
-}
-
-.unlike-button:hover {
-    cursor: pointer;
 }
 
 .modal-content {

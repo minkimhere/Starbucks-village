@@ -97,8 +97,22 @@ header h1 a {
     margin-bottom: 2%;
     width: 24%;
     cursor: pointer;
+    transform: translateY(0);
+    transition: 0.5s;
 }
-
+.card:hover {
+    transform: translateY(-0.5rem);
+}
+.card > .card-image > figure {
+    overflow: hidden;
+}
+.card > .card-image > figure > img {
+    transform: scale(1);
+    transition: 0.3s;
+}
+.card:hover > .card-image > figure > img {
+    transform: scale(1.02);
+}
 .media-content {
     text-align: center;
 }
