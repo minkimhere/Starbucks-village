@@ -155,7 +155,7 @@
             } else {
                 $("#help-password").text("사용할 수 있는 비밀번호입니다.").removeClass("is-danger").addClass("is-success")
             }
-            {#비밀번호 다시 확인창에서 비밀번호가 비어있다면 입력을 하도록 한다.#}
+            {#비밀번호 다시 확인창에서 비밀번호가 비어있다면 입력을 하도록 한다. #}
             if (password2 == "") {
                 $("#help-password2").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
                 $("#input-password2").focus()
