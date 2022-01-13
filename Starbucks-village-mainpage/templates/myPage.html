@@ -2,17 +2,24 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    {#  og  #}
     <meta property="og:title" content="스타벅스 빌리지(STARBUCKS VILLAGE)"/>
     <meta property="og:description" content="스타벅스 음료를 먹고 후기를 남겨주세요!"/>
     <meta property="og:image" content="{{ url_for('static', filename='img/og_image.png') }}"/>
+
     <title>스타벅스빌리지 | 마이페이지</title>
-    <!--jQuery-->
+
+    {# jQuery #}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    {# bulma #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    {# font-awesome #}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/mypage.css">
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
     <script>
         function logout(){
             $.removeCookie('mytoken', {path: '/'});
@@ -22,17 +29,21 @@
     </script>
 </head>
 <body>
+   {# 헤더 #}
     <header>
         <h1><a href="/">스타벅스 빌리지</a></h1>
         <div class="log-out"><a onclick="logout()">로그아웃</a></div>
     </header>
+   {# 메인 #}
     <main>
+        {# 개인페이지 아이디(닉네임) #}
         <div class="nick_hello">
             <p><span>{{nickname}}</span>님 안녕하세요!</p>
         </div>
         <div class="my_review">
             <h2>내가 작성한 리뷰</h2>
             <div class="card-box">
+                {# db에서 받아온 리뷰내용 #}
                 {% for review in reviews %}
                     {% set image = review.image %}
                     {% set name = review.coffeeName %}
@@ -43,54 +54,61 @@
                     {% set checkLike = review.heart_by_me %}
                     {% set like = review.Like %}
 
+                    {# 카테고리로 클래스 부여 #}
                     {% if category == "주스(병음료)" %}
                         <div id="review-card" class="card 주스">
                     {% else %}
                         <div id="review-card" class="card {{ category }}">
                     {% endif %}
-
-                <div class="card-image">
-                    <figure class="image image is-1by1">
-                        <img src="{{ image }}" alt="{{ name }}">
-                    </figure>
-                </div>
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-content">
-                            <p class="title is-4">{{ name }}</p>
-                            <p class="subtitle is-6">{{ category }}</p>
-                            <figure class="image is-3by1 star">
-                                <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
-                            </figure>
+                            {# 리뷰 - 제품 이미지 #}
+                            <div class="card-image">
+                                <figure class="image image is-1by1">
+                                    <img src="{{ image }}" alt="{{ name }}">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-content">
+                                        {# 리뷰 - 제품명 #}
+                                        <p class="title is-4">{{ name }}</p>
+                                        {# 리뷰 - 카테고리 #}
+                                        <p class="subtitle is-6">{{ category }}</p>
+                                        {# 리뷰 - 평점 #}
+                                        <figure class="image is-3by1 star">
+                                            <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                                        </figure>
+                                    </div>
+                                </div>
+                                {# 리뷰 - 리뷰내용 #}
+                                <div class="content">
+                                    {{ reviewContent }}
+                                </div>
+                                <div class="like">
+                                    {# db의 '_id'를 받아와서 좋아요 버튼의 id로 부여 #}
+                                    {% if checkLike == True %}
+                                        <button id="{{ reviewNum }}" class="unlike-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                                    {% elif checkLike == False %}
+                                        <button id="{{ reviewNum }}" class="like-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                                    {% endif %}
+                                    {# 리뷰 - 좋아요 수 #}
+                                    <span>{{ like }}</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="content">
-                        {{ reviewContent }}
-                    </div>
-                    <div class="like">
-                        {% if checkLike == True %}
-                            <button id="{{ reviewNum }}" class="unlike-button" onclick="toggleLike('{{ reviewNum }}')"></button>
-                        {% elif checkLike == False %}
-                            <button id="{{ reviewNum }}" class="like-button" onclick="toggleLike('{{ reviewNum }}')"></button>
-                        {% endif %}
-                        <span>{{ like }}</span>
-                    </div>
-                </div>
-        </div>
-
-        {% endfor %}
-        </div>
-        </div>
+                {% endfor %}
+            </div>
+        {# 리뷰 모달창 #}
         <div class="modal modal-post">
-        <div class="modal-background modal-post-background"></div>
-        <div class="modal-content">
-            <div class="box modal-box">
-                <button class="delete" aria-label="close"></button>
-                <div class="modal-box-content">
-
+            {# 모달 배경 - 클릭 시 모달 창 닫힘 #}
+            <div class="modal-background modal-post-background"></div>
+            <div class="modal-content">
+                <div class="box modal-box">
+                    <button class="delete" aria-label="close"></button>
+                    <div class="modal-box-content">
+                        {# 리뷰카드 클릭시 함수가 동작하면서 temp_html로 내용 삽입 #}
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
     </main>
 </body>

@@ -1,30 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {#  og  #}
     <meta property="og:title" content="스타벅스 빌리지(STARBUCKS VILLAGE)"/>
     <meta property="og:description" content="스타벅스 음료를 먹고 후기를 남겨주세요!"/>
     <meta property="og:image" content="{{ url_for('static', filename='img/og_image.png') }}"/>
 
-    <!-- Bootstrap CSS -->
-    {#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"#}
-    {#          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"#}
-    {#          crossorigin="anonymous">#}
+    <title>스타벅스 빌리지</title>
 
-    <!-- JS -->
+    {#  jQuery  #}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"#}
-    {#            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"#}
-    {#            crossorigin="anonymous"></script>#}
-    <title>스타벅스 빌리지</title>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    {#  bulma  #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    {#  font-awsome  #}
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
     <script>
         function openPost() {
             $('.add-post').show()
@@ -36,139 +33,161 @@
     </script>
 </head>
 <body>
-<header>
-    <h1><a href="/">스타벅스 빌리지</a></h1>
-    <div class="mini_nav">
-        <div class="log-out"><a href="/mypage">마이페이지</a><a onclick="sign_out()">로그아웃</a></div>
+    {#  헤더  #}
+    <header>
+        <h1><a href="/">스타벅스 빌리지</a></h1>
+        <div class="mini_nav">
+            <div class="log-out"><a href="/mypage">마이페이지</a><a onclick="sign_out()">로그아웃</a></div>
+        </div>
+        {#  카테고리 네비게이션  #}
+        <nav class="category_nav">
+            <ul>
+                <li class="selected"><a onclick="sortCoffee(this)" href="#">모두보기</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">콜드 브루</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">브루드</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">에스프레소</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">프라푸치노</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">블랜디드</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">피치오</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">티</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">기타</a></li>
+                <li><a onclick="sortCoffee(this)" href="#">주스(병음료)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {# 플로팅메뉴 - 리뷰추가버튼 #}
+    <div class="add_button">
+        <button onclick="openPost()"><span>리뷰남기기</span></button>
     </div>
-    <nav class="category_nav">
-        <ul>
-            <li class="selected"><a onclick="sortCoffee(this)" href="#">모두보기</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">콜드 브루</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">브루드</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">에스프레소</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">프라푸치노</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">블랜디드</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">피치오</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">티</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">기타</a></li>
-            <li><a onclick="sortCoffee(this)" href="#">주스(병음료)</a></li>
-        </ul>
-    </nav>
-</header>
-<div class="add_button">
-    <button onclick="openPost()"><span>리뷰남기기</span></button>
-</div>
 
-<div class="wrapper">
-    <div class="card-box">
-        {% for review in reviews %}
-            {% set image = review.image %}
-            {% set name = review.coffeeName %}
-            {% set category = review.category %}
-            {% set star = review.starRating %}
-            {% set reviewContent = review.review %}
-            {% set reviewNum = review.review_id %}
-            {% set checkLike = review.heart_by_me %}
-            {% set like = review.Like %}
+    {# 메인 #}
+    <main>
+        <div class="wrapper">
+            <div class="card-box">
+                {# db에서 받아온 리뷰내용 #}
+                {% for review in reviews %}
+                    {% set image = review.image %}
+                    {% set name = review.coffeeName %}
+                    {% set category = review.category %}
+                    {% set star = review.starRating %}
+                    {% set reviewContent = review.review %}
+                    {% set reviewNum = review.review_id %}
+                    {% set checkLike = review.heart_by_me %}
+                    {% set like = review.Like %}
 
-            {% if category == "주스(병음료)" %}
-                <div id="review-card" class="card 주스">
-            {% else %}
-                <div id="review-card" class="card {{ category }}">
-            {% endif %}
-
-        <div class="card-image">
-            <figure class="image image is-1by1">
-                <img src="{{ image }}" alt="{{ name }}">
-            </figure>
-        </div>
-        <div class="card-content">
-            <div class="media">
-                <div class="media-content">
-                    <p class="title is-4">{{ name }}</p>
-                    <p class="subtitle is-6">{{ category }}</p>
-                    <figure class="image is-3by1 star">
-                        <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
-                    </figure>
+                    {# 카테고리로 클래스 부여 #}
+                    {% if category == "주스(병음료)" %}
+                        <div id="review-card" class="card 주스">
+                    {% else %}
+                        <div id="review-card" class="card {{ category }}">
+                    {% endif %}
+                            {# 리뷰 - 제품 이미지 #}
+                            <div class="card-image">
+                                <figure class="image image is-1by1">
+                                    <img src="{{ image }}" alt="{{ name }}">
+                                </figure>
+                            </div>
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-content">
+                                        {# 리뷰 - 제품 이미지 #}
+                                        <p class="title is-4">{{ name }}</p>
+                                        {# 리뷰 - 카테고리 #}
+                                        <p class="subtitle is-6">{{ category }}</p>
+                                        <figure class="image is-3by1 star">
+                                            {# 리뷰 - 평점 #}
+                                            <img src="../static/img/star{{ star }}.svg" alt="{{ star }}점">
+                                        </figure>
+                                    </div>
+                                </div>
+                                {# 리뷰 - 리뷰내용 #}
+                                <div class="content">
+                                    {{ reviewContent }}
+                                </div>
+                                <div class="like">
+                                    {# db의 '_id'를 받아와서 좋아요 버튼의 id로 부여 #}
+                                    {% if checkLike == True %}
+                                        <button id="{{ reviewNum }}" class="unlike-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                                    {% elif checkLike == False %}
+                                        <button id="{{ reviewNum }}" class="like-button" onclick="toggleLike('{{ reviewNum }}')"></button>
+                                    {% endif %}
+                                    {# 리뷰 - 좋아요 수 #}
+                                    <span class="like-num">{{ like }}</span>
+                                </div>
+                                {# 리뷰 - 아이디(닉네임) #}
+                                <div class="nickname">
+                                   <p>{{ review.nickname }}</p>
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}
+                {# 리뷰 작성 #}
+                <div class="modal add-post">
+                    {# 리뷰 작성시 배경 - 클릭 시 리뷰 작성 창 닫힘 #}
+                    <div class="modal-background" onclick="closePost()"></div>
+                    <div class="review-post">
+                        <div class="review-select">
+                            <p>카테고리 : </p>
+                            {# 카테고리 선택 시 음료 선택 창에 옵션 추가 #}
+                            <select id="coffee-category-select" class="form-select coffee-category-select"
+                                    onchange="getCategory(this.value)">
+                                <option selected>선택하세요!</option>
+                                <option value="콜드 브루">콜드 브루</option>
+                                <option value="브루드">브루드</option>
+                                <option value="에스프레소">에스프레소</option>
+                                <option value="프라푸치노">프라푸치노</option>
+                                <option value="블랜디드">블랜디드</option>
+                                <option value="피치오">피치오</option>
+                                <option value="티">티</option>
+                                <option value="기타">기타</option>
+                                <option value="주스(병음료)">주스(병음료)</option>
+                                {% for coffee in coffees %}
+                                    <option value="{{ coffee.coffeeName }}">{{ coffee.coffeeName }}</option>
+                                {% endfor %}
+                            </select>
+                            <p>음료 : </p>
+                            <select id="coffee-name-select" class="form-select coffee-name-select">
+                                <option selected>선택하세요!</option>
+                            </select>
+                            <p>평점 : </p>
+                            <select id="star-rating-select" class="form-select star-rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <textarea name="review-content" id="review-content" class="review-content" cols="30" rows="5"></textarea>
+                        <i class="far fa-star"></i>
+                        <div class="button-group">
+                            {# 저장 버튼 #}
+                            <button type="button" class="btn btn-success review-button" onclick="reviewWrite()">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            </button>
+                            {# 창 닫힘 버튼 #}
+                            <button type="button" class="btn btn-light close-button" onclick="closePost()">
+                                <i class="fa fa-window-close" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+                {# 리뷰 모달창 #}
+                <div class="modal modal-post">
+                    {# 모달 배경 - 클릭 시 모달 창 닫힘 #}
+                    <div class="modal-background modal-post-background"></div>
+                    <div class="modal-content">
+                        <div class="box modal-box">
+                            <button class="delete" aria-label="close"></button>
+                            <div class="modal-box-content">
+                                {# 리뷰카드 클릭시 함수가 동작하면서 temp_html로 내용 삽입 #}
+                            </div>
+                        </div>
+                    </div>
             </div>
-            <div class="content">
-                {{ reviewContent }}
-            </div>
-            <div class="like">
-                {% if checkLike == True %}
-                    <button id="{{ reviewNum }}" class="unlike-button" onclick="toggleLike('{{ reviewNum }}')"></button>
-                {% elif checkLike == False %}
-                    <button id="{{ reviewNum }}" class="like-button" onclick="toggleLike('{{ reviewNum }}')"></button>
-                {% endif %}
-                <span class="like-num">{{ like }}</span>
-            </div>
-            <div class="nickname">
-               <p>{{ review.nickname }}</p>
-            </div>
-        </div>
-        </div>
-
-        {% endfor %}
-        </div>
-        <div class="modal add-post">
-            <div class="modal-background" onclick="closePost()"></div>
-            <div class="review-post">
-                <div class="review-select">
-                    <p>카테고리 : </p>
-                    <select id="coffee-category-select" class="form-select coffee-category-select"
-                            onchange="getCategory(this.value)">
-                        <option selected>선택하세요!</option>
-                        <option value="콜드 브루">콜드 브루</option>
-                        <option value="브루드">브루드</option>
-                        <option value="에스프레소">에스프레소</option>
-                        <option value="프라푸치노">프라푸치노</option>
-                        <option value="블랜디드">블랜디드</option>
-                        <option value="피치오">피치오</option>
-                        <option value="티">티</option>
-                        <option value="기타">기타</option>
-                        <option value="주스(병음료)">주스(병음료)</option>
-                        {% for coffee in coffees %}
-                            <option value="{{ coffee.coffeeName }}">{{ coffee.coffeeName }}</option>
-                        {% endfor %}
-                    </select>
-                    <p>음료 : </p>
-                    <select id="coffee-name-select" class="form-select coffee-name-select">
-                        <option selected>선택하세요!</option>
-                    </select>
-                    <p>평점 : </p>
-                    <select id="star-rating-select" class="form-select star-rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <textarea name="review-content" id="review-content" class="review-content" cols="30" rows="5">
-        </textarea>
-                <i class="far fa-star"></i>
-                <div class="button-group">
-                    <button type="button" class="btn btn-success review-button" onclick="reviewWrite()">
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-light close-button" onclick="closePost()">
-                        <i class="fa fa-window-close" aria-hidden="true"></i>
-                    </button>
-                </div>
             </div>
         </div>
-        <div class="modal modal-post">
-        <div class="modal-background modal-post-background"></div>
-        <div class="modal-content">
-            <div class="box modal-box">
-                <button class="delete" aria-label="close"></button>
-                <div class="modal-box-content">
-
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 </body>
 </html>
