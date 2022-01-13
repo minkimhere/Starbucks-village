@@ -81,10 +81,12 @@
         // {% if msg %}
         //     alert("{{ msg }}")
         // {% endif %}
+        {#로그인 함수#}
         function sign_in() {
             let username = $("#input-username").val()
             let password = $("#input-password").val()
 
+            {#아이디가 비어있는 경우 입력하라고 알려주기#}
             if (username == "") {
                 $("#help-id-login").text("아이디를 입력해주세요.")
                 $("#input-username").focus()
@@ -93,6 +95,7 @@
                 $("#help-id-login").text("")
             }
 
+            {#비밀번호가 비어있는 경우 입력하라고 알려주기#}
             if (password == "") {
                 $("#help-password-login").text("비밀번호를 입력해주세요.")
                 $("#input-password").focus()
@@ -104,10 +107,12 @@
                 type: "POST",
                 url: "/sign_in",
                 data: {
+                    {#username, password를 가져온다.#}
                     username_give: username,
                     password_give: password
                 },
                 success: function (response) {
+                    {#로그인 값을 받아오는데 성공하면 토큰을 가져온다.#}
                     if (response['result'] == 'success') {
                         $.cookie('mytoken', response['token'], {path: '/'});
                         window.location.replace("/")
@@ -118,13 +123,15 @@
             });
         }
 
+        {#회원가입 함수#}
         function sign_up() {
             let username = $("#input-username").val()
             let password = $("#input-password").val()
             let password2 = $("#input-password2").val()
             console.log(username, password, password2)
 
-
+            {#클래스명에 is-danger, is-success가 있는지 확인하여 잘못된 아이디, 중복아이디를 검사한다. #}
+            {# is-danger 클래스명은 아이디 규칙 검사, is-success 클래스명은 아이디 중복 검사#}
             if ($("#help-id").hasClass("is-danger")) {
                 alert("아이디를 다시 확인해주세요.")
                 return;
@@ -133,21 +140,27 @@
                 return;
             }
 
+            {#비밀 번호가 비어있다면 입력을 하도록 한다#}
+            {#비밀 번호가 비어있다면 id-safe 클래스를 떼고 is-danger을 붙여준다.#}
             if (password == "") {
                 $("#help-password").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
                 $("#input-password").focus()
                 return;
+            {#비밀 번호 규칙이 잘못 되어있다면 다시 입력하도록 하고 빠져나간다.#}
             } else if (!is_password(password)) {
                 $("#help-password").text("비밀번호의 형식을 확인해주세요. 영문과 숫자 필수 포함, 특수문자(!@#$%^&*) 사용가능 8-20자").removeClass("is-safe").addClass("is-danger")
                 $("#input-password").focus()
                 return
+            {#비어있지도 않고, 규칙도 다 지켰다면 is-success 클래스명을 붙여준다.#}
             } else {
                 $("#help-password").text("사용할 수 있는 비밀번호입니다.").removeClass("is-danger").addClass("is-success")
             }
+            {#비밀번호 다시 확인창에서 비밀번호가 비어있다면 입력을 하도록 한다.#}
             if (password2 == "") {
                 $("#help-password2").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
                 $("#input-password2").focus()
                 return;
+            {#비밀번호 1과 같은 원리로 동일하다.#}
             } else if (password2 != password) {
                 $("#help-password2").text("비밀번호가 일치하지 않습니다.").removeClass("is-safe").addClass("is-danger")
                 $("#input-password2").focus()
@@ -163,6 +176,8 @@
                     password_give: password
                 },
                 success: function (response) {
+                    //username 전달, password 전달해서 db에 잘 저장이 되고 success 까지 온다면 alert를 띄워주고
+                    //login페이지로 이동하여 새로고침해준다.
                     alert("회원가입을 축하드립니다!")
                     window.location.replace("/login")
                 }
@@ -170,6 +185,10 @@
 
         }
 
+        {#제이쿼리 toggle 함수이다.#}
+        {#회원가입, 로그인 페이지는 같은 인풋박스를 공유하고 있으며 필요한 부분만 보이게 해서 사용한다#}
+        {#따라서 로그인에서 숨겨놓았던 것을 회원가입에서는 보이게, 회원가입에서는 숨겨놓았던 것을 로그인에서는 보이게 하려고 한다.#}
+        {#제이쿼리 토글 함수를 통해 간단하게 하였다. #}
         function toggle_sign_up() {
             $("#sign-up-box").toggleClass("is-hidden")
             $("#div-sign-in-or-up").toggleClass("is-hidden")
@@ -181,27 +200,30 @@
         }
 
         //아이디 검사 정규표현식
-        //소문자 영어, 대문자 영어, 영어 길이, 숫자 길이, -, ., 아이디 길이
+        // 순서대로 소문자 영어, 대문자 영어, 영어 길이, 숫자 길이, -, ., 아이디 길이
         function is_nickname(asValue) {
             var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
             return regExp.test(asValue);
         }
 
         //비밀번호 검사 정규표현식
-        // 숫자, 소문자 영어, 대문자 영어, 숫자 길이, 영어길이, 특수문자, 비밀번호 길이
+        // 순서대로 숫자, 소문자 영어, 대문자 영어, 숫자 길이, 영어길이, 특수문자, 비밀번호 길이
         function is_password(asValue) {
             var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/;
             return regExp.test(asValue);
         }
 
+        {#아이디 검사하기#}
         function check_dup() {
             let username = $("#input-username").val()
             console.log(username)
+            {#아이디가 비어있는 경우 is-safe 클래스명을 제거하고 is-danger로 바꿔주고 빠져나온다.#}
             if (username == "") {
                 $("#help-id").text("아이디를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
                 $("#input-username").focus()
                 return;
             }
+            {#아이디가 정규표현식 규칙에서 탈락하면 is-safe제거하고 is-danger을 추가하고 빠져나온다.#}
             if (!is_nickname(username)) {
                 $("#help-id").text("아이디의 형식을 확인해주세요. 영문과 숫자, 일부 특수문자(._-) 사용 가능. 2-10자 길이").removeClass("is-safe").addClass("is-danger")
                 $("#input-username").focus()
@@ -215,7 +237,10 @@
                     username_give: username
                 },
                 success: function (response) {
-
+                    {#데이터베이스에서 아이디 비교 검사하기#}
+                    {#@app.route('/sign_up/check_dup', methods=['POST'])#}
+                    {#def check_dup():#}
+                    {#app.py 에 있는 위 부분 함수에서 비교해보고 response로 전달된다.#}
                     if (response["exists"]) {
                         $("#help-id").text("이미 존재하는 아이디입니다.").removeClass("is-safe").addClass("is-danger")
                         $("#input-username").focus()
