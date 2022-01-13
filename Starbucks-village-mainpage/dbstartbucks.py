@@ -12,6 +12,7 @@ db = client.starbucksVillage
 # data = requests.get('https://www.starbucks.co.kr/menu/drink_list.do',headers=headers)
 
 
+# 스타벅스 페이지에서 크롤링이 되지않아 크롬드라이버 사용
 dr = webdriver.Chrome('./chromedriver')
 dr.get("https://www.starbucks.co.kr/menu/drink_list.do")
 
@@ -23,6 +24,7 @@ soup = BeautifulSoup(html_source, 'html.parser')
 #coldbrew
 #lists = soup.select_one('#container > div.content > div.product_result_wrap.product_result_wrap01 > div > dl > dd:nth-child(2) > div.product_list > dl > dd:nth-child(2) > ul')
 
+# 각 커피의 카테고리에 따라 크롤링
 coldbrews = soup.select_one('.product_cold_brew')
 for li in coldbrews:
     coffee = li.select_one('dl')
